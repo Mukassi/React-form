@@ -4,12 +4,10 @@ import styles from './form.module.css'
 
 class Form extends Component {
     state = {
-        value: '',
         isValid: true,
         errorMessage: ''
     }
     onHandleChange = (event) => {
-
         this.setState({value: event.target.value})
         this.props.onHandleChange(event);
         this.checkOnValidate(event.target.name, event.target.value)
@@ -26,21 +24,25 @@ class Form extends Component {
                     errorMessage: 'Введены некорректные данные',
                 },
                 birthday: {
-                regex: /^[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
-                errorMessage: 'Неверный формат даты',
+                    regex: /^[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
+                    errorMessage: 'Неверный формат даты',
                 },
                 phone: {
-                    regex: /^(\+)?((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){10}\d$/gm,
-                    errorMessage: 'Номер телефона должен содержать 12 цифр',
+                    regex: /^(?:(?:\+48|48|\+375|8|7|\+7)\d{1,11}|\d{1,12})$/gm,
+                    errorMessage: 'Неверный формат телефона',
+                },
+                website: {
+                    regex: /^(http:\/\/|https:\/\/)(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm,
+                    errorMessage: 'Неверынй формат сайта'
                 }
             }
-        if(name === 'name' || name === 'surname' || name === 'birthday' || name === 'phone') { 
+        if(name === 'name' || name === 'surname' || name === 'birthday' || name === 'phone' || name === 'website') { 
             value.replace(regEx[name].regex, '') ? this.setState({isValid: false, errorMessage: regEx[name].errorMessage}) : this.setState({isValid: true, errorMessage: ''})
         }           
     }
     render(){
-        const {value, isValid, errorMessage} = this.state
-        const {title, name, type, hint} = this.props;
+        const {isValid, errorMessage} = this.state
+        const {title, name, type, hint, value, placeholder} = this.props;
         const formInput = name === 'techstack' || name === 'lastProject' || name === 'about';
         return(
             <>
@@ -51,11 +53,11 @@ class Form extends Component {
 
                 { formInput ? 
                     <textarea 
-                        className={isValid ? styles.input : styles.imputError}
+                        className={styles.input}
                         name={name} 
                         id={name} 
                         rows="7" 
-                        placeholder={title} 
+                        placeholder={placeholder} 
                         value={value} 
                         onChange={this.onHandleChange}></textarea>
                     :
@@ -66,7 +68,7 @@ class Form extends Component {
                         id= {name} 
                         name={name}
                         onChange={this.onHandleChange} 
-                        placeholder={title}
+                        placeholder={placeholder}
                         />  
                 }  
                 <div className={styles.hint}>{errorMessage || hint}</div>

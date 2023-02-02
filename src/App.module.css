@@ -4,7 +4,7 @@
     height: 100%;
     padding-top: 10px;
     padding-bottom: 50px;
-    background-color: rgb(185, 180, 173);
+    background-color: rgb(213, 216, 213);
   }
   
 .content {
@@ -15,12 +15,12 @@
     max-width: 700px;
     border-radius: 10px;
     padding: 0;
-    box-shadow: rgba(21, 21, 34, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(68, 100, 62, 0.2) 0px 7px 29px 0px;
     background-color:#fff;
   }
   
 .title {
-    background-color:rgb(195, 195, 214);
+    background-color:rgb(224, 205, 145);
     width: 100%;
     padding: 30px 0;
     text-align: center;
@@ -34,16 +34,16 @@
     margin: 20px 20px;
     padding: 20px 50px;
     width: 200px;
-    background-color: rgb(104, 166, 224);
-    color: white;
+    background-color: rgb(224, 205, 145);
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 20px;
     font-size: 16px;
     cursor: pointer;
 }
 .btn:hover {
-    background-color:rgb(42, 135, 221);
+    background-color:rgb(224, 205, 100);
 }
 .btn:active {
-    background-color:rgb(3, 87, 167);
+    background-color:rgb(224, 205, 20);
 }

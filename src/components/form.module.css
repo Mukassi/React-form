@@ -1,4 +1,6 @@
-
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {-webkit-appearance: none;
+    margin:0;}
 .input{
     max-width: 600px;
     box-sizing: border-box;
@@ -32,7 +34,7 @@
     transition: 0.25s;
 }
 .input:focus{
-    border: 2px solid rgb(105, 191, 241);
+    border: 2px solid rgb(224, 205, 145);
 }
 
 
