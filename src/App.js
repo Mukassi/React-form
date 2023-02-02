@@ -11,8 +11,10 @@ class App extends Component{
         website:'',
         about:'',
         techstack:'',
-        lastProject:''
+        lastProject:'',
+        clear:false
     }
+
     handleSaveState = (e) => {
         e.preventDefault()
         console.log(this.state)
@@ -20,6 +22,7 @@ class App extends Component{
 
     handleClearForm = (e) => {
         e.preventDefault();
+        console.log('clear')
         this.setState({
             name:'',
             surname:'',
@@ -39,19 +42,21 @@ class App extends Component{
         return (
             <div className={style.container}>
 
-                <form className={style.content}>
+                <form className={style.content}
+                    onReset={this.handleClearForm}
+                    onSubmit={this.handleSaveState}>
                     <h1 className={style.title}>Создание анкеты</h1>
-                    <Form title='Имя' name='name' onHandleChange={this.handleChange}/>
-                    <Form title='Фамилия' name='surname' onHandleChange={this.handleChange}/>
+                    <Form title='Имя' name='name' onHandleChange={this.handleChange} hint='Используя только латинские и кириллические буквы'/>
+                    <Form title='Фамилия' name='surname' onHandleChange={this.handleChange} hint='Используя только латинские и кириллические буквы'/>
                     <Form title='Дата рождения' name='birthday' onHandleChange={this.handleChange} type='date'/>
-                    <Form title='Телефон' name="phone" onHandleChange={this.handleChange} type='tel'/>
+                    <Form title='Телефон' name="phone" onHandleChange={this.handleChange} type='number' hint='В формате: 80000000000, 77000000000'/>
                     <Form title='Сайт' name='website' onHandleChange={this.handleChange}/>
                     <Form title='О себе' name='about' onHandleChange={this.handleChange}/>
                     <Form title='Стек технологий' name='techstack' onHandleChange={this.handleChange}/>
                     <Form title='Описание последнего проекта' name='lastProject' onHandleChange={this.handleChange}/>
                     <div>
-                        <button className={style.btn} name='clear' onClick={this.handleClearState}>Отмена</button>
-                        <button className={style.btn} name='send' onClick={this.handleSaveState}>Сохранить</button>
+                        <button type='reset' className={style.btn} name='reset'>Отмена</button>
+                        <button type='submit' className={style.btn} name='submit'>Сохранить</button>
                     </div>
 
                 </form>
