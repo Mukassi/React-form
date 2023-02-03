@@ -1,81 +1,122 @@
+import FormInput from './formInput';
+import style from './form.module.css';
+import validate from './validate';
+import phoneInputMask from './phoneInputMask';
 import { Component } from 'react';
-import styles from './form.module.css'
 
+class Form extends Component{
+    state= {
+        values: {
+            name: '',
+            surname: '',
+            birthday: '',
+            phone: '',
+            website: '',
+            about: '',
+            techstack: '',
+            lastProject: ''
+        },
+        
+        form: [
+            {title: 'Имя', name: 'name', value: '', placeholder: 'Иван', type: 'text', isValid: true, errorMessage: '' },
+            {title: 'Фамилия', name: 'surname', value: '', placeholder: 'Иванов', type: 'text', isValid: true, errorMessage: ''},
+            {title: 'Дата рождения', name: 'birthday', value: '', placeholder: '', type: 'date', isValid: true, errorMessage: ''},
+            {title: 'Телефон', name: 'phone', value: '', placeholder: '777777777', type: 'tel', isValid: true, errorMessage: ''},
+            {title: 'Сайт', name: 'website', value:'', placeholder: 'http://mysite.com', type: 'text', isValid: true, errorMessage: ''},
+            {title: 'О себе', name: 'about', value: '', placeholder: 'Я Frontend разработчик', type: 'text', isValid: true, errorMessage: ''},
+            {title: 'Стек технологий', name: 'techstack', value: '', placeholder: 'JavaScript...', type: 'text', isValid: true, errorMessage: ''},
+            {title: 'Описание последнего проекта', name: 'lastProject', value: '', placeholder: 'Мы сделали...', type: 'text', isValid: true, errorMessage: ''}
+        ],
 
-class Form extends Component {
-    state = {
-        isValid: true,
-        errorMessage: ''
     }
-    onHandleChange = (event) => {
-        this.setState({value: event.target.value})
-        this.props.onHandleChange(event);
-        this.checkOnValidate(event.target.name, event.target.value)
+
+
+    onSaveState = (e) => {
+        e.preventDefault()
+        if (Object.values(this.state.values).some(element => !element)){
+            alert('Не все поля заполнены')
+        }
+        if( this.state.form.some(element => !element.isValid)){
+            alert('Не все поля заполнены верно')
+        }
+
     }
 
-    checkOnValidate = (name, value) => {
-        const regEx = {
-                name: { 
-                    regex: /^[а-яёa-z]+$/iu,
-                    errorMessage: 'Введены некорректные данные',
-                },
-                surname: {
-                    regex: /^[а-яёa-z]+$/iu,
-                    errorMessage: 'Введены некорректные данные',
-                },
-                birthday: {
-                    regex: /^[0-9]{4}-[0-9]{2}-[0-9]{2}/g,
-                    errorMessage: 'Неверный формат даты',
-                },
-                phone: {
-                    regex: /^(?:(?:\+48|48|\+375|8|7|\+7)\d{1,11}|\d{1,12})$/gm,
-                    errorMessage: 'Неверный формат телефона',
-                },
-                website: {
-                    regex: /^(http:\/\/|https:\/\/)(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm,
-                    errorMessage: 'Неверынй формат сайта'
+    onChangeValid = (name, validate, errorMessage) => {
+        this.setState(({form}) => {
+            return form.map((elem) => {
+                if (name === 'every') {
+                    elem.isValid = true;
+                    elem.errorMessage = '';
                 }
-            }
-        if(name === 'name' || name === 'surname' || name === 'birthday' || name === 'phone' || name === 'website') { 
-            value.replace(regEx[name].regex, '') ? this.setState({isValid: false, errorMessage: regEx[name].errorMessage}) : this.setState({isValid: true, errorMessage: ''})
-        }           
+                if(elem.name === name){
+                    elem.isValid = validate;
+                    elem.errorMessage = errorMessage
+                }
+                return elem;
+            })
+        })
     }
-    render(){
-        const {isValid, errorMessage} = this.state
-        const {title, name, type, hint, value, placeholder} = this.props;
-        const formInput = name === 'techstack' || name === 'lastProject' || name === 'about';
-        return(
-            <>
-                <label 
-                    className={styles.label}
-                    htmlFor={name}>{title}
-                </label>
 
-                { formInput ? 
-                    <textarea 
-                        className={styles.input}
-                        name={name} 
-                        id={name} 
-                        rows="7" 
-                        placeholder={placeholder} 
-                        value={value} 
-                        onChange={this.onHandleChange}></textarea>
-                    :
-                    <input 
-                        className={isValid ? styles.input : styles.inputError}
-                        value={value}
-                        type={type ? type : "text"} 
-                        id= {name} 
-                        name={name}
-                        onChange={this.onHandleChange} 
-                        placeholder={placeholder}
-                        />  
-                }  
-                <div className={styles.hint}>{errorMessage || hint}</div>
-            </>
-        )
+    onClearForm = (e) => {
+        e.preventDefault();
+        this.onChangeValid('every')
+        this.setState(prevState => ({
+            form: [...prevState.form],
+            values:{
+                name: '',
+                surname: '',
+                birthday: '',
+                phone: '',
+                website: '',
+                about: '',
+                techstack: '',
+                lastProject: ''
+            }
+        }));
     }
+
+    onChangeValue = (event) => {
+        let {name, value} = event.target;
+
+
+        if (name === 'phone') {
+            value= value.replace(/[^\d]+$/,'')
+            value = phoneInputMask(this.state.values, value);
+        }
+        const {isValid, errorMessage} = validate(name, value);
+        this.onChangeValid(name, isValid, errorMessage)
+        this.setState(prevState => ({
+            form: [...prevState.form],
+            values:{
+                ...prevState.values,
+                [name]: value
+            }
+        }));
+    }
+    render() {
+        const {form, values} = this.state;
+        return (
+            <div className={style.container}>
+
+                <form className={style.content}
+                    onReset={this.onClearForm}
+                    onSubmit={this.onSaveState}>
+                    <h1 className={style.title}>Создание анкеты</h1>
+
+                        <FormInput form={form} values={values} onChangeValue={this.onChangeValue}/>
+
+                            
+                    <div>
+                        <button type='reset' className={style.btn} name='reset'>Отмена</button>
+                        <button type='submit' className={style.btn} name='submit'>Сохранить</button>
+                    </div>
+
+                </form>
+            </div>
+
+        );
+ }
 }
 
 export default Form;
-
