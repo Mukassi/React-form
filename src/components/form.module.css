@@ -1,97 +1,116 @@
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {-webkit-appearance: none;
-    margin:0;}
-.input{
-    max-width: 600px;
-    box-sizing: border-box;
-    display: block;
-    width: 60%;
-    padding: 0 20px;
-    margin-top: 10px;
-    background: #E9EFF6;
-    line-height: 40px;
-    border: 2px solid #E9EFF6;
-    border-radius: 10px;
-    outline: none;
-    font-family: serif;
-    font-size: 18px;
-    transition: 0.25s;
-}
-.inputError{
-    max-width: 600px;
-    box-sizing: border-box;
-    display: block;
-    width: 60%;
-    padding: 0 20px;
-    margin-top: 10px;
-    background: #E9EFF6;
-    line-height: 40px;
-    border: 2px solid #ff0000;
-    border-radius: 10px;
-    outline: none;
-    font-family: serif;
-    font-size: 18px;
-    transition: 0.25s;
-}
-.input:focus{
-    border: 2px solid rgb(224, 205, 145);
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-
-.label{
-    font-family: serif;
-    font-size: 20px;
-    margin: 10px;
+li {
+  list-style-type: none;
 }
-.hint{
-    color:rgba(0, 0, 0, 0.35)
+.ul {
+  width: 90%;
+  box-sizing: border-box;
+  display: block;
+  padding: 0 20px;
+  margin-top: 10px;
+  background: #e9eff6;
+  line-height: 60px;
+  border: 2px solid #e9eff6;
+  border-radius: 10px;
+  font-family: serif;
+  font-size: 24px;
+}
+.input {
+  resize: none;
+  max-width: 600px;
+  box-sizing: border-box;
+  display: block;
+  width: 60%;
+  padding: 0 20px;
+  margin-top: 10px;
+  background: #e9eff6;
+  line-height: 40px;
+  border: 2px solid #e9eff6;
+  border-radius: 10px;
+  outline: none;
+  font-family: serif;
+  font-size: 18px;
+  transition: 0.25s;
+}
+.input:focus {
+  border: 2px solid rgb(224, 205, 145);
+}
+.inputError {
+  resize: none;
+  max-width: 600px;
+  box-sizing: border-box;
+  display: block;
+  width: 60%;
+  padding: 0 20px;
+  margin-top: 10px;
+  background: #e9eff6;
+  line-height: 40px;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  outline: none;
+  font-family: serif;
+  font-size: 18px;
+  transition: 0.25s;
+}
+.label {
+  font-family: serif;
+  font-size: 20px;
+  margin: 10px;
+}
+.hint {
+  color: rgba(0, 0, 0, 0.35);
 }
 .container {
-    display:flex;
-    justify-content: center;
-    height: 100%;
-    padding-top: 10px;
-    padding-bottom: 50px;
-    background-color: rgb(213, 216, 213);
-  }
-  
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 700px;
-    border-radius: 10px;
-    padding: 0;
-    box-shadow: rgba(68, 100, 62, 0.2) 0px 7px 29px 0px;
-    background-color:#fff;
-  }
-  
-.title {
-    background-color:rgb(224, 205, 145);
-    width: 100%;
-    padding: 30px 0;
-    text-align: center;
-    border-radius: 10px;
-    margin: 0 0 1rem;
-    font-weight: 300;
-    font-size: 36px;
-    font-family: serif;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  background-color: rgb(213, 216, 213);
 }
-.btn{
-    margin: 20px 20px;
-    padding: 20px 50px;
-    width: 200px;
-    background-color: rgb(224, 205, 145);
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: rgba(68, 100, 62, 0.2) 0px 7px 29px 0px;
+  background-color: #fff;
+}
+
+.title {
+  background-color: rgb(224, 205, 145);
+  width: 100%;
+  padding: 30px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin: 0 0 1rem;
+  font-weight: 300;
+  font-size: 36px;
+  font-family: serif;
+}
+.btn {
+  margin: 20px 20px;
+  padding: 20px 50px;
+  width: 200px;
+  background-color: rgb(224, 205, 145);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 .btn:hover {
-    background-color:rgb(224, 205, 100);
+  background-color: rgb(224, 205, 100);
 }
 .btn:active {
-    background-color:rgb(224, 205, 20);
+  background-color: rgb(224, 205, 20);
 }
