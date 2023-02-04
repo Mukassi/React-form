@@ -4,15 +4,13 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-li {
-  list-style-type: none;
-}
-.ul {
+.fullForm {
   width: 90%;
   box-sizing: border-box;
+  max-width: 700px;
   display: block;
   padding: 0 20px;
-  margin-top: 10px;
+  margin: 10px;
   background: #e9eff6;
   line-height: 60px;
   border: 2px solid #e9eff6;

@@ -9,10 +9,6 @@ const validate = (name, inputValue) => {
       regex: /^[A-ZА-ЯЁ]/g,
       errorMessage: "Первый символ должен быть заглавной буквой",
     },
-    phone: {
-      regex: /^[0-9]{1}-[0-9]{4}-[0-9]{2}-[0-9]{2}$/,
-      errorMessage: "Номер телефона должен состоять максимум из 9 цифр",
-    },
     website: {
       regex: /^https:\/\/.*/g,
       errorMessage: "Адрес сайта должен начинаться с https://",
@@ -22,6 +18,12 @@ const validate = (name, inputValue) => {
     return {
       isValid: false,
       errorMessage: "Поле пустое. Запоните пожалуйста",
+    };
+  }
+  if (name === "phone" && value.replace("-", "").length > 9) {
+    return {
+      isValid: false,
+      errorMessage: "Номер телефона должен состоять максимум из 9 цифр",
     };
   }
   if (name === "birthday") {
@@ -46,7 +48,7 @@ const validate = (name, inputValue) => {
       isValid: false,
       errorMessage: regularExpressions[name].errorMessage,
     };
-  } else if (value.length > 600) {
+  } else if (inputValue.length > 600) {
     return {
       isValid: false,
       errorMessage: "Превышен лимит символов в поле",

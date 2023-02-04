@@ -56,7 +56,7 @@ class Form extends Component {
       {
         title: "Сайт",
         name: "website",
-        placeholder: "http://mysite.com",
+        placeholder: "https://mysite.com",
         type: "text",
         isValid: true,
         errorMessage: "",
@@ -93,6 +93,7 @@ class Form extends Component {
 
   onSaveForm = (e) => {
     e.preventDefault();
+    window.scrollTo(0, 0);
     if (Object.values(this.state.values).some((element) => !element)) {
       const emptyNames = Object.keys(this.state.values).filter(
         (key) => !this.state.values[key]

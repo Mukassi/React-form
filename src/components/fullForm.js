@@ -16,14 +16,14 @@ class FullForm extends Component {
     return (
       <>
         <h1 className={styles.title}>{name + " " + surname}</h1>
-        <ul className={styles.ul}>
-          <li>Дата рождения: {birthday}</li>
-          <li>Телефон: {phone}</li>
-          <li>Вебсайт: {website}</li>
-          <li>О себе: {about}</li>
-          <li>Стек технологий: {techstack}</li>
-          <li>Последний проект: {lastProject}</li>
-        </ul>
+        <div className={styles.fullForm}>
+          <p>Дата рождения: {birthday}</p>
+          <p>Телефон: {phone}</p>
+          <p>Вебсайт: {website}</p>
+          <p>О себе: {about}</p>
+          <p>Стек технологий: {techstack}</p>
+          <p>Последний проект: {lastProject}</p>
+        </div>
       </>
     );
   }
