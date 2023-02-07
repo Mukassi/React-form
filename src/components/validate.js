@@ -20,7 +20,8 @@ const validate = (name, inputValue) => {
       errorMessage: "Поле пустое. Запоните пожалуйста",
     };
   }
-  if (name === "phone" && value.replace("-", "").length > 9) {
+  if (name === "phone" && value.replaceAll("-", "").length > 9) {
+    console.log(value.replaceAll("-", ""))
     return {
       isValid: false,
       errorMessage: "Номер телефона должен состоять максимум из 9 цифр",
