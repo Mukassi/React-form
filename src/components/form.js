@@ -1,9 +1,11 @@
 import { useState } from "react";
+import Modal from "./modal";
+import formDB from "./formDB";
 import FullForm from "./fullForm";
 import FormInput from "./formInput";
 import styles from "./form.module.css";
-import validate from "./validate";
-import phoneInputMask from "./phoneInputMask";
+import validate from "./utils/validate";
+import phoneInputMask from "./utils/phoneInputMask";
 import Buttons from "./buttons";
 
 const initialValues = {
@@ -19,75 +21,8 @@ const initialValues = {
 const Form = () => {
   const [fullForm, setFullForm] = useState(false);
   const [values, setValues] = useState(initialValues);
-  const [form, setForm] = useState([
-    {
-      title: "Имя",
-      name: "name",
-      placeholder: "Иван",
-      type: "text",
-      isValid: true,
-      errorMessage: "",
-    },
-    {
-      title: "Фамилия",
-      name: "surname",
-      placeholder: "Иванов",
-      type: "text",
-      isValid: true,
-      errorMessage: "",
-    },
-    {
-      title: "Дата рождения",
-      name: "birthday",
-      placeholder: "",
-      type: "date",
-      isValid: true,
-      errorMessage: "",
-    },
-    {
-      title: "Телефон",
-      name: "phone",
-      placeholder: "7-7777-77-77",
-      type: "tel",
-      isValid: true,
-      errorMessage: "",
-    },
-    {
-      title: "Сайт",
-      name: "website",
-      placeholder: "https://mysite.com",
-      type: "text",
-      isValid: true,
-      errorMessage: "",
-    },
-    {
-      title: "О себе",
-      name: "about",
-      placeholder: "Я Frontend разработчик...",
-      type: "text",
-      isValid: true,
-      errorMessage: "",
-      multiInput: true,
-    },
-    {
-      title: "Стек технологий",
-      name: "techstack",
-      placeholder: "JavaScript...",
-      type: "text",
-      isValid: true,
-      errorMessage: "",
-      multiInput: true,
-    },
-    {
-      title: "Описание последнего проекта",
-      name: "lastProject",
-      placeholder: "Мы сделали...",
-      type: "text",
-      isValid: true,
-      errorMessage: "",
-      multiInput: true,
-    },
-  ]);
+  const [form, setForm] = useState(formDB);
+  const [activeModal, setActiveModal] = useState(false);
 
   const onSaveForm = (e) => {
     e.preventDefault();
@@ -103,9 +38,14 @@ const Form = () => {
     if (form.some((element) => !element.isValid)) {
       return alert("Не все поля заполнены верно");
     }
+    setActiveModal(true);
     setFullForm(true);
   };
 
+  const onCloseModal = () => {
+    setActiveModal(false);
+  };
+  
   const onChangeValid = (name, validate, errorMessage) => {
     setForm((form) => {
       return form.map((elem) => {
@@ -133,8 +73,10 @@ const Form = () => {
     if (name === "phone") {
       value = value.replace(/[^\d]+$/, "");
       value = phoneInputMask(values, value);
+      value = value.slice(0, 12);
     }
     const { isValid, errorMessage } = validate(name, value);
+
     onChangeValid(name, isValid, errorMessage);
     setValues((prevValues) => ({
       ...prevValues,
@@ -144,11 +86,7 @@ const Form = () => {
 
   return (
     <div className={styles.container}>
-      <form
-        className={styles.content}
-        onReset={onClearForm}
-        onSubmit={onSaveForm}
-      >
+      <form className={styles.content}>
         {!fullForm ? (
           <>
             <FormInput
@@ -156,10 +94,13 @@ const Form = () => {
               values={values}
               onChangeValue={onChangeValue}
             />
-            <Buttons />
+            <Buttons onClearForm={onClearForm} onSaveForm={onSaveForm} />
           </>
         ) : (
-          <FullForm values={values} />
+          <>
+            {activeModal ? <Modal onCloseModal={onCloseModal} /> : null}
+            <FullForm values={values} />
+          </>
         )}
       </form>
     </div>

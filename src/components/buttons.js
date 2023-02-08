@@ -1,12 +1,22 @@
 import styles from "./form.module.css";
 
-const Buttons = () => {
+const Buttons = ({ onClearForm, onSaveForm }) => {
   return (
     <div>
-      <button type="reset" className={styles.btn} name="reset">
+      <button
+        type="reset"
+        className={styles.btn}
+        name="reset"
+        onClick={onClearForm}
+      >
         Отмена
       </button>
-      <button type="submit" className={styles.btn} name="submit">
+      <button
+        type="submit"
+        className={styles.btn}
+        name="submit"
+        onClick={onSaveForm}
+      >
         Сохранить
       </button>
     </div>

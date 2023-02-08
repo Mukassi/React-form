@@ -112,3 +112,35 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn:active {
   background-color: rgb(224, 205, 20);
 }
+.modal {
+  background-color: rgba(0, 0, 0, 0.35);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modalContent {
+  border-radius: 10px;
+  height: 100px;
+  width: 400px;
+  padding: 10px;
+  background-color: #e9eff6;
+  border: 2px solid #e9eff6;
+  transition: 0.25s;
+  text-align: center;
+  font-family: serif;
+  font-size: 22px;
+}
+.modalClose {
+  position: relative;
+  left: 45%;
+  /* left: 90%; */
+  font-size: 30px;
+  color: #fc0b0b;
+  opacity: 0.5;
+  font-weight: 700;
+  border: none;
+  background-color: transparent;
+}
